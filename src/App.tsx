@@ -1,8 +1,8 @@
-// import { useState } from "react";
-import { Counter } from "./components";
+import React from "react";
+import Layout from "./layout/layout";
 
-function App() {
-  return <Counter />;
-}
+const App: React.FC = () => {
+  return <Layout />;
+};
 
 export default App;

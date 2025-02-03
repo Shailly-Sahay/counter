@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Box, Grid } from "@mui/material";
 import { animated, useSpring } from "@react-spring/web";
-import { Counter, UserForm } from "../components";
+import { Counter, UserForm, RichTextEditor } from "../components";
 
 const Layout: React.FC = () => {
   const [count, setCount] = useState(0);
@@ -20,7 +20,7 @@ const Layout: React.FC = () => {
           <Counter count={count} setCount={setCount} />
         </Grid>
         <Grid item xs={6}>
-          {/* <RichTextEditor /> */}
+          <RichTextEditor />
         </Grid>
 
         {/* Bottom Row */}

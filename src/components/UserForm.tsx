@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { TextField, Button, Box, Typography } from "@mui/material";
+import Popup from "./Popup";
 
 const UserForm: React.FC = () => {
   const [formData, setFormData] = useState(() => {
@@ -9,29 +10,16 @@ const UserForm: React.FC = () => {
       : { id: Date.now(), name: "", email: "", phone: "", address: "" };
   });
 
-  const [isDirty, setIsDirty] = useState(false);
-
-  useEffect(() => {
-    const handleBeforeUnload = (event: BeforeUnloadEvent) => {
-      if (isDirty) {
-        event.preventDefault();
-        event.returnValue = "You have unsaved changes!";
-      }
-    };
-    window.addEventListener("beforeunload", handleBeforeUnload);
-    return () => window.removeEventListener("beforeunload", handleBeforeUnload);
-  }, [isDirty]);
+  const [showSavedPopup, setShowSavedPopup] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
-    setIsDirty(true);
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     localStorage.setItem("userData", JSON.stringify(formData));
-    setIsDirty(false);
-    alert("Data saved!");
+    setShowSavedPopup(true);
   };
 
   return (
@@ -85,6 +73,12 @@ const UserForm: React.FC = () => {
           Save
         </Button>
       </form>
+
+      <Popup
+        open={showSavedPopup}
+        onClose={() => setShowSavedPopup(false)}
+        message="Your data has been saved successfully!"
+      />
     </Box>
   );
 };
